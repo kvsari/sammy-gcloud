@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+    # This here would be where the `Pod` starts
+  template:
+    metadata:
+      labels:
+        app: postgres
+        tier: backend
+    spec:
+      containers:
+      - image: postgres:10.5-alpine
+        name: postgres
+        env:
+          # Update to using secrets once my skill level improves some.
+        - name: POSTGRES_PASSWORD
+          value: collector
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+          name: postgres
+        volumeMounts:
+        - name: postgres-persistent-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-persistent-storage
+        persistentVolumeClaim:
+          claimName: postgres-volumeclaim

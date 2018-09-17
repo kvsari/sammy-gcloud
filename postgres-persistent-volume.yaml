@@ -1,0 +1,15 @@
+# Doesn't work
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-volume
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: pgdata
+  gcePersistentDisk:
+    pdName: postgres-volume
+    fsType: xfs
