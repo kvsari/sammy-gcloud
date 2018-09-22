@@ -20,12 +20,15 @@ spec:
       containers:
       - image: postgres:10.5-alpine
         name: postgres
+        resources:
+          requests:
+            memory: "2G"
         env:
           # Update to using secrets once my skill level improves some.
         - name: POSTGRES_PASSWORD
           value: collector
         - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
+          value: /var/lib/postgresql/data/pgdata          
         ports:
         - containerPort: 5432
           name: postgres

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-test-pod
+  labels:
+    app: migration-test-pod
+    tier: testing
+spec:
+  containers:
+  - image: asia.gcr.io/soy-channel-216515/trade-history-migrate-test:0.1.0
+    name: trade-history-migrate-test

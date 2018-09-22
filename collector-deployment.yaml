@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector
+  labels:
+    app: collector
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+        tier: backend
+    spec:
+      containers:
+      - image: asia.gcr.io/soy-channel-216515/collector:0.1.0
+        name: collector
+        env:
+        - name: DATABASE_URL
+          value: postgres://postgres:collector@postgres/sammy_trade_history
+        - name: COLLECTOR_LISTEN_ADDR
+          value: 0.0.0.0:8080
+      initContainers:
+      - image: asia.gcr.io/soy-channel-216515/trade-history-migrate:0.1.0
+        name: trade-history-migrate
+        env:
+        - name: DATABASE_URL
+          value: postgres://postgres:collector@postgres/sammy_trade_history
