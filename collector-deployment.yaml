@@ -17,7 +17,7 @@ spec:
         tier: backend
     spec:
       containers:
-      - image: asia.gcr.io/soy-channel-216515/collector:0.1.0
+      - image: asia.gcr.io/soy-channel-216515/collector:0.1.1
         name: collector
         env:
         - name: DATABASE_URL
@@ -25,7 +25,7 @@ spec:
         - name: COLLECTOR_LISTEN_ADDR
           value: 0.0.0.0:8080
       initContainers:
-      - image: asia.gcr.io/soy-channel-216515/trade-history-migrate:0.1.0
+      - image: asia.gcr.io/soy-channel-216515/trade-history-migrate:0.1.1
         name: trade-history-migrate
         env:
         - name: DATABASE_URL

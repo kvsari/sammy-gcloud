@@ -7,5 +7,8 @@ metadata:
     tier: testing
 spec:
   containers:
-  - image: asia.gcr.io/soy-channel-216515/trade-history-migrate-test:0.1.0
-    name: trade-history-migrate-test
+  - image: asia.gcr.io/soy-channel-216515/trade-history-migrate:0.1.1
+    name: trade-history-migrate
+    env:
+    - name: DATABASE_URL
+      value: postgres://postgres:collector@postgres/sammy_trade_history

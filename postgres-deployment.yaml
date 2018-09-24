@@ -10,19 +10,20 @@ spec:
   selector:
     matchLabels:
       app: postgres
-    # This here would be where the `Pod` starts
+      tier: backend
   template:
     metadata:
       labels:
         app: postgres
         tier: backend
+    # This part here would be where the pod begins.
     spec:
       containers:
       - image: postgres:10.5-alpine
         name: postgres
         resources:
           requests:
-            memory: "2G"
+            memory: "1G"
         env:
           # Update to using secrets once my skill level improves some.
         - name: POSTGRES_PASSWORD
@@ -39,3 +40,7 @@ spec:
       - name: postgres-persistent-storage
         persistentVolumeClaim:
           claimName: postgres-volumeclaim
+      # This doesn't seem to work. It should let me force pod creation on nodes that
+      # have the label `workload=database`.
+      #nodeSelector:
+      #  workload: database

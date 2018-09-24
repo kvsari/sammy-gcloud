@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kraken-fetcher
+  labels:
+    app: kraken-fetcher
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kraken-fetcher
+  template:
+    metadata:
+      labels:
+        app: kraken-fetcher
+        tier: backend
+    spec:
+      containers:
+      - image: asia.gcr.io/soy-channel-216515/kraken-fetcher:0.1.0
+        name: kraken-fetcher
+        env:
+        - name: KRAKEN_ASSET_PAIR
+          value: BTCUSD
+        - name: KRAKEN_FETCH_MODE
+          value: trade
+        - name: SAMMY_TRANSLATOR
+          value: http://collector:8080
+
