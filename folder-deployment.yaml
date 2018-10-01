@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: folder
+  labels:
+    app: folder
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: folder
+  template:
+    metadata:
+      labels:
+        app: folder
+        tier: backend
+    spec:
+      containers:
+      - image: asia.gcr.io/soy-channel-216515/folder:0.1.0
+        name: folder
+        env:
+        - name: RUST_LOG
+          value: folder=debug,lib=debug
+        - name: DATABASE_URL
+          value: postgres://postgres:collector@postgres/sammy_trade_history
+        - name: FOLDER_LISTEN_ADDR
+          value: 0.0.0.0:8080

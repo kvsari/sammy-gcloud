@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: webserver
+        tier: frontend
+    spec:
+      containers:
+      - image: asia.gcr.io/soy-channel-216515/webserver:0.1.0
+        name: webserver
+        env:
+        - name: WEBSERVER_LISTEN_ADDR
+          value: 0.0.0.0:80
+        - name: FOLDER_URL
+          value: http://folder:8080
