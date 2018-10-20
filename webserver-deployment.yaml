@@ -18,7 +18,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: asia.gcr.io/soy-channel-216515/webserver:0.2.0
+      - image: asia.gcr.io/soy-channel-216515/webserver:0.2.1
         name: webserver
         env:
         - name: WEBSERVER_LISTEN_ADDR

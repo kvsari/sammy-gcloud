@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: binance
+  labels:
+    app: binance
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: binance
+  template:
+    metadata:
+      labels:
+        app: binance
+        tier: backend
+    spec:
+      containers:
+      - image: asia.gcr.io/soy-channel-216515/binance:0.1.0
+        name: binance
+        env:
+        - name: SAMMY_COLLECTOR
+          value: http://collector:8080
+        - name: TRADE_HISTORY_STREAMS
+          value: BTC/USD:ETH/USD:BNB/USD:ETH/BTC:BNB/BTC:BNB/ETH
